@@ -510,8 +510,8 @@ def visuals():
         legend=dict(
         x=0,                  
         y=1.2,                  
-        xanchor='left',
-        yanchor='top',
+        xanchor='center',
+        yanchor='bottom',
         font=dict(color='white', size=10)),
 
         showlegend=True,
@@ -715,7 +715,7 @@ app.layout = html.Div(
             style={
                 "width": "30vw",
                 "maxWidth": "800px",
-                "height": "20vh",
+                "height": "30vh",
                 "margin": "10px 0",
             }
         ),
