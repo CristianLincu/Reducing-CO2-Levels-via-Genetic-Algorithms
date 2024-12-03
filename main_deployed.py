@@ -426,7 +426,7 @@ app = Dash(__name__, server=server, url_base_pathname="/webapp/")
 print("Dash initialized successfully.")
 
 viewport_width = app.config['suppress_callback_exceptions']
-base_font_size = 14
+base_font_size = 10
 font_scaling_factor = 0.02
 
 responsive_font_size = base_font_size + (font_scaling_factor * viewport_width)
@@ -518,10 +518,6 @@ def visuals():
             tickfont=dict(
                 color='#f7deb2',
                 size=responsive_tick_font_size
-            ),
-            title=dict(
-                text='Time',
-                font=dict(color='#f7deb2', size=responsive_font_size),
             )
         ),
         yaxis=dict(
@@ -557,41 +553,106 @@ def visuals():
                     range_color=[30, 100], title = 'Relationship Between Main Variables',
                     labels = {'CO2Emission': 'CO₂ Level'})
 
-    fig2.update_layout(autosize=True, paper_bgcolor='rgb(47,55,79)', margin=dict(l=0, r=0, t=50, b=0), scene_camera=dict(eye=dict(x=1, y=1, z=1)),
-                    title_font_family="Century Gothic", title_font_color='white', title_x=0.47, title_y=0.95,
-                    title=dict(font=dict(size=18)))
+    fig2.update_layout(
+        autosize=True,
+        paper_bgcolor='rgb(47,55,79)',
+        margin=dict(l=0, r=0, t=50, b=0),
+        scene_camera=dict(eye=dict(x=1, y=1, z=1)),
+        title=dict(
+            text='Relationship Between Main Variables',
+            font=dict(
+                family="Century Gothic",
+                color='white',
+                size=responsive_font_size  # Responsive chart title font size
+            ),
+            x=0.47,
+            y=0.95,
+        ),
+        legend=dict(
+            title=dict(
+                text="CO₂ Level",
+                font=dict(
+                    family="Arial",
+                    size=responsive_font_size - 2,  # Legend title font
+                    color='white',
+                )
+            ),
+            font=dict(
+                family="Arial",
+                size=responsive_font_size - 4,  # Legend items font
+                color="white"
+            )
+        )
+    )
 
-    fig2.update_layout(legend=dict(font=dict(family="Arial",size=10,color="white")),
-                    font=dict(family='Calibri', size=14, color='white'))
-    
+    # Update traces for responsive hovertemplate
     fig2.update_traces(
         hovertemplate=(
             "Power Plants Energy: %{x}<br>"
             "Renewables: %{y}<br>"
             "Total Exchanges: %{z}<br>"
-            "CO₂ Level: %{marker.color}"),
-        marker_size=3)
+            "CO₂ Level: %{marker.color}"
+        ),
+        marker_size=4
+    )
 
-
-    fig2.update_layout(scene = dict(xaxis = dict(
-                                        backgroundcolor="rgba(0, 0, 0,0)",
-                                        gridcolor="white",
-                                        showbackground=True,
-                                        zerolinecolor="white",
-                                        title = 'Power Plants Energy'),
-                                    yaxis = dict(
-                                        backgroundcolor="rgba(0, 0, 0,0)",
-                                        gridcolor="white",
-                                        showbackground=True,
-                                        zerolinecolor="white",
-                                        title = 'Renewables'),
-                                    zaxis = dict(
-                                        backgroundcolor="rgba(0, 0, 0,0)",
-                                        gridcolor="white",
-                                        showbackground=True,
-                                        zerolinecolor="white",
-                                        title = 'Total Exchanges'),
-                                    aspectratio=dict(x=0.5, y=0.5, z=0.5)))
+    # Update axes for responsiveness
+    fig2.update_layout(
+        scene=dict(
+            xaxis=dict(
+                backgroundcolor="rgba(0, 0, 0,0)",
+                gridcolor="white",
+                showbackground=True,
+                zerolinecolor="white",
+                title=dict(
+                    text='Power Plants Energy',
+                    font=dict(
+                        color='white',
+                        size=responsive_font_size  # Responsive axis title font size
+                    )
+                ),
+                tickfont=dict(
+                    color='white',
+                    size=responsive_tick_font_size  # Responsive tick font size
+                )
+            ),
+            yaxis=dict(
+                backgroundcolor="rgba(0, 0, 0,0)",
+                gridcolor="white",
+                showbackground=True,
+                zerolinecolor="white",
+                title=dict(
+                    text='Renewables',
+                    font=dict(
+                        color='white',
+                        size=responsive_font_size  # Responsive axis title font size
+                    )
+                ),
+                tickfont=dict(
+                    color='white',
+                    size=responsive_tick_font_size  # Responsive tick font size
+                )
+            ),
+            zaxis=dict(
+                backgroundcolor="rgba(0, 0, 0,0)",
+                gridcolor="white",
+                showbackground=True,
+                zerolinecolor="white",
+                title=dict(
+                    text='Total Exchanges',
+                    font=dict(
+                        color='white',
+                        size=responsive_font_size  # Responsive axis title font size
+                    )
+                ),
+                tickfont=dict(
+                    color='white',
+                    size=responsive_tick_font_size  # Responsive tick font size
+                )
+            ),
+            aspectratio=dict(x=0.5, y=0.5, z=0.5)
+        )
+    )
 
 
 
@@ -729,9 +790,9 @@ app.layout = html.Div(
             id="fig1",
             figure=fig1 if fig1 else go.Figure(),
             style={
-                "width": "30vw",
+                "width": "40vw",
                 "maxWidth": "800px",
-                "height": "30vh",
+                "height": "45vh",
                 "margin": "10px 0",
             }
         ),
@@ -774,7 +835,7 @@ app.layout = html.Div(
 
         html.Div(id="fig3-container", children=fig3 if fig3 else html.Div("Loading..."),
                  style={
-                "width": "60vw",
+                "width": "80vw",
                 "maxWidth": "1000px",
                 "margin": "0 auto",
              #   "overflowX": "auto"
@@ -800,7 +861,7 @@ app.layout = html.Div(
             style={
                 "width": "30vw",
                 "maxWidth": "700px",
-                "height": "60vh",
+                "height": "70vh",
                 "margin": "10px 0",
             }
         ),
