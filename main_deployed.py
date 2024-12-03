@@ -299,7 +299,7 @@ main_text1 = """
             (trained on the past year data) and genetic algorithms for finding the optimal energy distribution with respect to CO₂ emission minimization. 
             The goal is to infer the optimal resource combination that minimizes CO₂ emissions, depending on future demand and
             renewables production. Fig 1 shows a comparison between emissions in the past hour in Denmark's power system and the minimized CO₂ levels 
-            in the next 5 time points with optimal energy distribution.
+            in the next 5 time points with optimal energy distribution:
 
             
             """
@@ -573,13 +573,13 @@ def visuals():
                 text="CO₂ Level",
                 font=dict(
                     family="Arial",
-                    size=responsive_font_size - 3,  # Legend title font
+                    size=responsive_font_size - 5,  # Legend title font
                     color='white',
                 )
             ),
             font=dict(
                 family="Arial",
-                size=responsive_font_size - 4,  # Legend items font
+                size=responsive_font_size - 5,  # Legend items font
                 color="white"
             )
         )
@@ -654,6 +654,7 @@ def visuals():
         )
     )
 
+    fig2.update_layout(legend=dict(font=dict(family="Arial",color="white")))
 
 
     ## Fig 3: the optimal resource allocation in the next 5 time points, minimizing CO2 levels
