@@ -414,6 +414,25 @@ row_colors1 = ['#506A7A', '#618092', '#6E93AA', '#86B3CF', '#94C5E4']
 
 row_colors2 = ['#697E77', '#748E86', '#809B92', '#97B9AD', '#AAD1C4']
 
+
+server = Flask(__name__)
+
+@server.route("/")
+def home():
+    return "Welcome to the CO2 Reduction Dashboard! Go to '/webapp' to view the Dash app."
+
+print("Initializing Dash...")
+app = Dash(__name__, server=server, url_base_pathname="/webapp/")
+print("Dash initialized successfully.")
+
+viewport_width = app.config['suppress_callback_exceptions']
+base_font_size = 14
+font_scaling_factor = 0.02
+
+responsive_font_size = base_font_size + (font_scaling_factor * viewport_width)
+responsive_tick_font_size = base_font_size - 2 + (font_scaling_factor * viewport_width)
+
+
 def visuals():
     data_viz1 = data.iloc[:, 3:]
     data_viz1_1 = data_viz1.iloc[:, :2]
@@ -492,33 +511,40 @@ def visuals():
     ### Create the figure and add traces
     fig1 = go.Figure(data=[trace_main, trace_last5])
 
-    ### Customize layout with y-axis range
     fig1.update_layout(
         autosize=True,
-        # title=dict(
-        #     text='CO<sub>2</sub> Levels - Past Hour versus Future Optimization',
-        #     x=0.5, xanchor='center',
-        #     font=dict(family='Century Gothic', color='white', size=18)),
-
-        xaxis=dict(showgrid=False,
-                    tickfont=dict(color='#f7deb2'), 
-                    titlefont=dict(color='#f7deb2')),
-        yaxis=dict(title='CO<sub>2</sub> Levels (g/kWh)', showgrid=False,
-                    tickfont=dict(color='#f7deb2'), 
-                    titlefont=dict(color='#f7deb2')),
-
+        xaxis=dict(
+            showgrid=False,
+            tickfont=dict(
+                color='#f7deb2',
+                size=responsive_tick_font_size
+            ),
+            title=dict(
+                text='Time',
+                font=dict(color='#f7deb2', size=responsive_font_size),
+            )
+        ),
+        yaxis=dict(
+            title=dict(
+                text='CO<sub>2</sub> Levels (g/kWh)',
+                font=dict(color='#f7deb2', size=responsive_font_size),
+            ),
+            showgrid=False,
+            tickfont=dict(
+                color='#f7deb2',
+                size=responsive_tick_font_size
+            )
+        ),
         legend=dict(
-        x=0,                  
-        y=1.2,                  
-        xanchor='center',
-        yanchor='bottom',
-        font=dict(color='white', size=10)),
-
+            x=0,                  
+            y=1.2,                  
+            xanchor='center',
+            yanchor='bottom',
+            font=dict(color='white', size=responsive_font_size - 4),  # Slightly smaller legend font
+        ),
         showlegend=True,
-
         plot_bgcolor='rgb(47,55,79)',
         paper_bgcolor='rgb(47,55,79)',
-
         margin=dict(l=20, r=20, t=50, b=20)
     )
 
@@ -627,15 +653,6 @@ def visuals():
     return fig1, fig2, fig3
 
 
-#V. BUILDING THE WEB APP
-
-server = Flask(__name__)
-
-@server.route("/")
-def home():
-    return "Welcome to the CO2 Reduction Dashboard! Go to '/webapp' to view the Dash app."
-
-
 def update_data():
     global data, latest_distribution, next_demands, next_renewables
     global next_objective_values, next_optimized_co2, next_optimal_combinations
@@ -659,9 +676,8 @@ def update_data():
         print("Background update completed.")
 
 
-print("Initializing Dash...")
-app = Dash(__name__, server=server, url_base_pathname="/webapp/")
-print("Dash initialized successfully.")
+
+#V. BUILDING THE WEB APP
 
 app.layout = html.Div(
     style={
