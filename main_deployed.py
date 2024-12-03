@@ -639,25 +639,28 @@ def visuals():
         )
     )
 
-    fig2.update_layout(
-        legend=dict(
-            title=dict(
-                text="CO₂ Level",
-                font=dict(
-                    family="Arial",
-                    size=responsive_font_size - 5,  # Legend title font
-                    color='white',  # Ensure title font color is white
-                )
-            ),
-            font=dict(
-                family="Arial",
-                size=responsive_font_size - 5,  # Legend items font
-                color="white"  # Ensure items font color is white
-            ),
-            bgcolor="rgba(0, 0, 0, 0)",  # Transparent background for the legend
-            bordercolor="rgba(0, 0, 0, 0)",  # No border color
-        )
-    )
+    # fig2.update_layout(
+    #     legend=dict(
+    #         title=dict(
+    #             text="CO₂ Level",
+    #             font=dict(
+    #                 family="Arial",
+    #                 size=responsive_font_size - 5,  # Legend title font
+    #                 color='white',  # Ensure title font color is white
+    #             )
+    #         ),
+    #         font=dict(
+    #             family="Arial",
+    #             size=responsive_font_size - 5,  # Legend items font
+    #             color="white"  # Ensure items font color is white
+    #         ),
+    #         bgcolor="rgba(0, 0, 0, 0)",  # Transparent background for the legend
+    #         bordercolor="rgba(0, 0, 0, 0)",  # No border color
+    #     )
+    # )
+
+    fig2.update_layout(legend=dict(font=dict(family="Arial", size=responsive_font_size-5, color="white")),
+                font=dict(family='Calibri', size=responsive_font_size, color='white'))
 
 
     ## Fig 3: the optimal resource allocation in the next 5 time points, minimizing CO2 levels
