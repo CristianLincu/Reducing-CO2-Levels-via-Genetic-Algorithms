@@ -758,7 +758,7 @@ app.layout = html.Div(
 
         html.Div(id="fig3-container", children=fig3 if fig3 else html.Div("Loading..."),
                  style={
-                "width": "100%",
+                "width": "60vw",
                 "maxWidth": "1000px",
                 "margin": "0 auto",
              #   "overflowX": "auto"
@@ -784,7 +784,7 @@ app.layout = html.Div(
             style={
                 "width": "30vw",
                 "maxWidth": "700px",
-                "height": "40vw",
+                "height": "60vh",
                 "margin": "10px 0",
             }
         ),
