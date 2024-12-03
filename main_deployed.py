@@ -430,7 +430,7 @@ base_font_size = 10
 font_scaling_factor = 0.02
 
 responsive_font_size = base_font_size + (font_scaling_factor * viewport_width)
-responsive_tick_font_size = base_font_size - 2 + (font_scaling_factor * viewport_width)
+responsive_tick_font_size = base_font_size - 1 + (font_scaling_factor * viewport_width)
 
 
 def visuals():
@@ -536,7 +536,7 @@ def visuals():
             y=1.2,                  
             xanchor='center',
             yanchor='bottom',
-            font=dict(color='white', size=responsive_font_size - 4),  # Slightly smaller legend font
+            font=dict(color='white', size=responsive_font_size - 2),  # Slightly smaller legend font
         ),
         showlegend=True,
         plot_bgcolor='rgb(47,55,79)',
@@ -563,7 +563,7 @@ def visuals():
             font=dict(
                 family="Century Gothic",
                 color='white',
-                size=responsive_font_size  # Responsive chart title font size
+                size=responsive_font_size + 2 # Responsive chart title font size
             ),
             x=0.47,
             y=0.95,
@@ -573,7 +573,7 @@ def visuals():
                 text="CO₂ Level",
                 font=dict(
                     family="Arial",
-                    size=responsive_font_size - 2,  # Legend title font
+                    size=responsive_font_size - 3,  # Legend title font
                     color='white',
                 )
             ),
@@ -593,7 +593,7 @@ def visuals():
             "Total Exchanges: %{z}<br>"
             "CO₂ Level: %{marker.color}"
         ),
-        marker_size=4
+        marker_size=3
     )
 
     # Update axes for responsiveness
@@ -859,7 +859,7 @@ app.layout = html.Div(
             id="fig2",
             figure=fig2 if fig2 else go.Figure(),
             style={
-                "width": "30vw",
+                "width": "40vw",
                 "maxWidth": "700px",
                 "height": "70vh",
                 "margin": "10px 0",
