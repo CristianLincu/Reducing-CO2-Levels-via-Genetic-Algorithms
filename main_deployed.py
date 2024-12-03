@@ -713,9 +713,9 @@ app.layout = html.Div(
             id="fig1",
             figure=fig1 if fig1 else go.Figure(),
             style={
-                "width": "10%",
+                "width": "30vw",
                 "maxWidth": "800px",
-                "height": "auto",
+                "height": "20vh",
                 "margin": "10px 0",
             }
         ),
