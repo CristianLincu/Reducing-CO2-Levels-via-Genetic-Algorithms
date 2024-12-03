@@ -756,7 +756,7 @@ app.layout = html.Div(
                  style={
                 "width": "100%",
                 "maxWidth": "1000px",
-                "margin": "0 auto",
+             #   "margin": "0 auto",
              #   "overflowX": "auto"
             }),
 
@@ -771,6 +771,8 @@ app.layout = html.Div(
                 "margin": "20px auto",
             }
         ),
+
+        html.Br(),
 
         dcc.Graph(
             id="fig2",
