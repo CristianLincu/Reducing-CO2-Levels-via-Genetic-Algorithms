@@ -580,7 +580,7 @@ def visuals():
             style_cell={
                 'textAlign': 'center',
                 'padding': '10px',
-                'fontSize': '10px',
+                'fontSize': '11.5px',
                 'border': '1px solid lightgray',
                 'backgroundColor': 'rgb(47,55,79)',
                 'color': 'black',
@@ -745,7 +745,7 @@ app.layout = html.Div(
             table_title,
             style={
                 "color": "#D4D4D4",
-                "fontSize": "1.2vw",
+                "fontSize": "1vw",
                 "fontFamily": "Century Gothic, sans-serif",
                 "textAlign": "center",
                 "margin": "20px 0",
@@ -755,7 +755,7 @@ app.layout = html.Div(
         html.Div(id="fig3-container", children=fig3 if fig3 else html.Div("Loading..."),
                  style={
                 "width": "100%",
-                "maxWidth": "1000px",
+                "maxWidth": "1100px",
                 "margin": "0 auto",
                 "overflowX": "auto"
             }),
@@ -767,7 +767,7 @@ app.layout = html.Div(
                 "fontSize": "0.75vw",
                 "fontFamily": "Century Gothic, sans-serif",
                 "textAlign": "center",
-                "width": "40%",
+                "width": "60%",
                 "margin": "20px auto",
             }
         ),
