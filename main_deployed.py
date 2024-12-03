@@ -784,7 +784,7 @@ app.layout = html.Div(
             style={
                 "width": "30vw",
                 "maxWidth": "700px",
-                "height": "60vw",
+                "height": "40vw",
                 "margin": "10px 0",
             }
         ),
