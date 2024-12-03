@@ -295,8 +295,12 @@ main_text1 = """
             The data is collected via Energinet's public API which provides real-time data about Denmark's power system. 
             The dataset prepared for this analysis consists of data recorded every 5 minutes for the past year.
 
-            The main elements of this project are: a regression tree for CO₂ levels, XGBoost regressors for predicting demand and renewable energy production, 
-            genetic algorithms for finding the optimal energy distribution with respect to CO₂ emission minimization. 
+            The main elements of this project are: a regression tree for CO₂ levels, XGBoost regressors for predicting demand and renewable energy production
+            (trained on the past year data) and genetic algorithms for finding the optimal energy distribution with respect to CO₂ emission minimization. 
+            The goal is to infer the optimal resource combination that minimizes CO₂ emissions, depending on future demand and
+            renewables production. Fig 1 shows a comparison between emissions in the past hour in Denmark's power system and the minimized CO₂ levels 
+            in the next 5 time points with optimal energy distribution.
+
             
             """
 main_text2 = """
@@ -491,10 +495,10 @@ def visuals():
     ### Customize layout with y-axis range
     fig1.update_layout(
         autosize=True,
-        title=dict(
-            text='CO<sub>2</sub> Levels - Past Hour versus Future Optimization',
-            x=0.5, xanchor='center',
-            font=dict(family='Century Gothic', color='white', size=18)),
+        # title=dict(
+        #     text='CO<sub>2</sub> Levels - Past Hour versus Future Optimization',
+        #     x=0.5, xanchor='center',
+        #     font=dict(family='Century Gothic', color='white', size=18)),
 
         xaxis=dict(showgrid=False,
                     tickfont=dict(color='#f7deb2'), 
@@ -506,8 +510,8 @@ def visuals():
         legend=dict(
         x=0,                  
         y=1.2,                  
-        xanchor='center',
-        yanchor='bottom',
+        xanchor='left',
+        yanchor='top',
         font=dict(color='white', size=10)),
 
         showlegend=True,
@@ -709,7 +713,7 @@ app.layout = html.Div(
             id="fig1",
             figure=fig1 if fig1 else go.Figure(),
             style={
-                "width": "80%",
+                "width": "10%",
                 "maxWidth": "800px",
                 "height": "auto",
                 "margin": "10px 0",
@@ -720,7 +724,7 @@ app.layout = html.Div(
             text_fig1,
             style={
                 "color": "#D4D4D4",
-                "fontSize": "0.75vw",
+                "fontSize": "0.87vw",
                 "fontFamily": "Century Gothic, sans-serif",
                 "textAlign": "center",
                 "width": "40%",
@@ -756,7 +760,7 @@ app.layout = html.Div(
                  style={
                 "width": "100%",
                 "maxWidth": "1000px",
-             #   "margin": "0 auto",
+                "margin": "0 auto",
              #   "overflowX": "auto"
             }),
 
@@ -764,7 +768,7 @@ app.layout = html.Div(
             text_fig3,
             style={
                 "color": "#D4D4D4",
-                "fontSize": "0.75vw",
+                "fontSize": "0.87vw",
                 "fontFamily": "Century Gothic, sans-serif",
                 "textAlign": "center",
                 "width": "50%",
@@ -789,7 +793,7 @@ app.layout = html.Div(
             text_fig2,
             style={
                 "color": "#D4D4D4",
-                "fontSize": "0.75vw",
+                "fontSize": "0.87vw",
                 "fontFamily": "Century Gothic, sans-serif",
                 "textAlign": "center",
                 "width": "40%",
