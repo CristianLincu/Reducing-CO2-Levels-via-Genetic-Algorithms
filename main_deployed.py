@@ -757,7 +757,7 @@ app.layout = html.Div(
                 "width": "100%",
                 "maxWidth": "1100px",
                 "margin": "0 auto",
-                "overflowX": "auto"
+             #   "overflowX": "auto"
             }),
 
         dcc.Markdown(
