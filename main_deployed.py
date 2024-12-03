@@ -416,10 +416,8 @@ def visuals():
     data_viz.Minutes1DK = pd.to_datetime(data_viz.Minutes1DK)
     data_viz = data_viz.reset_index(drop=True)
 
-    blind_point1 = pd.concat([pd.DataFrame([data_viz.iloc[-1,0] + pd.Timedelta(minutes=5)]), data_viz.iloc[-1,1:]]).T
-    blind_point1.columns = data_viz.columns
-    blind_point2 = pd.concat([pd.DataFrame([data_viz.iloc[-1,0] + pd.Timedelta(minutes=10)]), data_viz.iloc[-1,1:]]).T
-    blind_point2.columns = data_viz.columns
+    blind_point = pd.concat([pd.DataFrame([data_viz.iloc[-1,0] + pd.Timedelta(minutes=5)]), data_viz.iloc[-1,1:]]).T
+    blind_point.columns = data_viz.columns
 
     next_timestamps = [data_viz.iloc[-1,0] + pd.Timedelta(minutes=10), data_viz.iloc[-1,0] + pd.Timedelta(minutes=15),
                    data_viz.iloc[-1,0] + pd.Timedelta(minutes=20), data_viz.iloc[-1,0] + pd.Timedelta(minutes=25),
@@ -430,7 +428,7 @@ def visuals():
 
     next_df.columns = data_viz.columns
 
-    data_and_next = pd.concat([data_viz, blind_point1, next_df], ignore_index=True)
+    data_and_next = pd.concat([data_viz, blind_point, next_df], ignore_index=True)
 
 
     table_visual = next_df.copy()
@@ -439,7 +437,8 @@ def visuals():
         'DK1-NO', 'DK1-SE', 'DK1-DK2',
         'DK2-DE', 'DK2-SE', 'Bornholm-SE', 'Demand Forecast',
         'Renewables Forecast', 'CO₂ Optimized']
-   
+
+    #table_visual['Demand Forecast'] = table_visual['Demand Forecast'].round()
     table_visual.iloc[:,1:] = table_visual.iloc[:,1:].round()
 
 
@@ -482,11 +481,14 @@ def visuals():
     y_min = min(data_and_next['CO2Emission'])
     y_max = max(data_and_next['CO2Emission'])
 
+    ### Create the figure and add traces
     fig1 = go.Figure(data=[trace_main, trace_last5])
 
+    ### Customize layout with y-axis range
     fig1.update_layout(
+        autosize=True,
         title=dict(
-            text='CO<sub>2</sub> Emission Levels - Past Hour versus Future Optimal Distribution',
+            text='CO<sub>2</sub> Levels - Past Hour versus Future Optimization',
             x=0.5, xanchor='center',
             font=dict(family='Century Gothic', color='white', size=18)),
 
@@ -500,8 +502,8 @@ def visuals():
         legend=dict(
         x=0,                  
         y=1.2,                  
-        xanchor='left',
-        yanchor='top',
+        xanchor='center',
+        yanchor='bottom',
         font=dict(color='white', size=10)),
 
         showlegend=True,
@@ -509,8 +511,7 @@ def visuals():
         plot_bgcolor='rgb(47,55,79)',
         paper_bgcolor='rgb(47,55,79)',
 
-        width=620,
-        height=400
+        margin=dict(l=20, r=20, t=50, b=20)
     )
 
 
@@ -522,7 +523,7 @@ def visuals():
                     range_color=[30, 100], title = 'Relationship Between Main Variables',
                     labels = {'CO2Emission': 'CO₂ Level'})
 
-    fig2.update_layout(paper_bgcolor='rgb(47,55,79)', margin=dict(l=0, r=0, t=0, b=0),
+    fig2.update_layout(autosize=True, paper_bgcolor='rgb(47,55,79)', margin=dict(l=0, r=0, t=50, b=0), scene_camera=dict(eye=dict(x=1, y=1, z=1)),
                     title_font_family="Century Gothic", title_font_color='white', title_x=0.47, title_y=0.95,
                     title=dict(font=dict(size=18)))
 
@@ -534,7 +535,8 @@ def visuals():
             "Power Plants Energy: %{x}<br>"
             "Renewables: %{y}<br>"
             "Total Exchanges: %{z}<br>"
-            "CO₂ Level: %{marker.color}"))
+            "CO₂ Level: %{marker.color}"),
+        marker_size=4)
 
 
     fig2.update_layout(scene = dict(xaxis = dict(
@@ -557,9 +559,6 @@ def visuals():
                                         title = 'Total Exchanges'),
                                     aspectratio=dict(x=0.5, y=0.5, z=0.5)))
 
-    fig2.update_layout(margin=dict(l=0,r=0,t=0,b=0), scene_camera=dict(eye=dict(x=1, y=1, z=1)),
-                    width=620, height=672)
-    fig2.update_traces(marker_size=4)
 
 
     ## Fig 3: the optimal resource allocation in the next 5 time points, minimizing CO2 levels
@@ -584,8 +583,8 @@ def visuals():
                 'whiteSpace': 'normal',  
                 'height': 'auto',
                 'lineHeight': '15px',
-                'width': '100px',     
-                'maxWidth': '100px',  
+                'width': '100%',     
+                'maxWidth': '100%',  
                 'overflow': 'hidden',
                 'fontFamily': 'Century Gothic, sans-serif'
             },
@@ -611,8 +610,10 @@ def visuals():
             style_table = {
                 'position': 'relative',
                 'marginLeft': '2.3%', 'marginRight': '2.3%',
+                'width': '100%',
+                'overflowX': 'auto',
                 'maxHeight': '400px',            
-                'maxWidth': '1730px',
+                'maxWidth': '100%',
                 'overflowY': 'auto'})
     
     return fig1, fig2, fig3
@@ -655,7 +656,17 @@ app = Dash(__name__, server=server, url_base_pathname="/webapp/")
 print("Dash initialized successfully.")
 
 app.layout = html.Div(
-    style={"backgroundColor": "#1E1E1E", "color": "#D4D4D4", "height": "235vh"},
+    style={
+        "backgroundColor": "#1E1E1E",
+        "color": "#D4D4D4",
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "center",
+        "justifyContent": "flex-start",
+        "padding": "10px",
+        "width": "100%",
+    },
+
     children=[
         dcc.Interval(
             id="update-interval",
@@ -668,82 +679,111 @@ app.layout = html.Div(
             title,
             style={
                 "color": "#D4D4D4",
-                "fontSize": "31px",
+                "fontSize": "1.5vw",
                 "fontFamily": "Segoe UI, sans-serif",
                 "textAlign": "center",
+                "width": "100%"
             },
         ),
         html.Br(),
-
-        dcc.Markdown(main_text, mathjax=True,
-                style={"position": "relative",
-                "marginTop": "-1%", "marginLeft": "2.5%", "marginRight": "39%",
-                "color": "#D4D4D4",
-                "fontSize": "17px",
-                "fontFamily": "Segoe UI, sans-serif",
-                "textAlign": "justify"}
-                ),
+        html.Br(),
 
         dcc.Graph(
             id="fig1",
             figure=fig1 if fig1 else go.Figure(),
-            style={"position": "relative", "marginTop": "-89%", "marginLeft": "63.4%"},
+            style={
+                "width": "80%",
+                "maxWidth": "800px",
+                "height": "auto",
+                "margin": "10px 0",
+            }
         ),
-        html.Br(),
+
         dcc.Markdown(
             text_fig1,
-            style={"position": "relative",
-                "marginTop": "-1%", "marginLeft": "63.5%", "marginRight": "2.45%",
+            style={
                 "color": "#D4D4D4",
-                "fontSize": "14px",
+                "fontSize": "0.75vw",
                 "fontFamily": "Century Gothic, sans-serif",
-                "textAlign": "center"
-            },
+                "textAlign": "center",
+                "width": "40%",
+                "margin": "0 auto",
+            }
         ),
+
+        dcc.Markdown(main_text, mathjax=True,
+                style={
+                "color": "#D4D4D4",
+                "fontSize": "1vw",
+                "fontFamily": "Segoe UI, sans-serif",
+                "textAlign": "justify",
+                "width": "100%",
+                "maxWidth": "900px",
+                "margin": "0 auto"}
+                ),
+
+        html.Br(),
+
         dcc.Graph(
             id="fig2",
             figure=fig2 if fig2 else go.Figure(),
-            style={"position": "relative", "marginTop": "18.75%", "marginLeft": "63.5%"},
+            style={
+                "width": "100%",
+                "maxWidth": "700px",
+                "height": "auto",
+                "margin": "10px 0",
+            }
         ),
-        html.Br(),
+
         dcc.Markdown(
             text_fig2,
-            style={"position": "relative",
-                "marginTop": "-1%", "marginLeft": "63.5%", "marginRight": "2.4%",
+            style={
                 "color": "#D4D4D4",
-                "fontSize": "14px",
-                "fontFamily": "Century Gothic, sans-serif",
-                "textAlign": "center"
-            },
-        ),
-        dcc.Markdown(
-            table_title,
-            style={"position": "relative",
-                "marginTop": "3.5%",   
-                "color": "#D4D4D4",
-                "fontSize": "18px",
+                "fontSize": "0.75vw",
                 "fontFamily": "Century Gothic, sans-serif",
                 "textAlign": "center",
-            },
+                "width": "40%",
+                "margin": "0 auto",
+            }
         ),
-        html.Div(id="fig3-container", children=fig3 if fig3 else html.Div("Loading...")),
+
+        dcc.Markdown(
+            table_title,
+            style={
+                "color": "#D4D4D4",
+                "fontSize": "1.2vw",
+                "fontFamily": "Century Gothic, sans-serif",
+                "textAlign": "center",
+                "margin": "20px 0",
+            }
+        ),
+
+        html.Div(id="fig3-container", children=fig3 if fig3 else html.Div("Loading..."),
+                 style={
+                "width": "100%",
+                "maxWidth": "1000px",
+                "margin": "0 auto",
+                "overflowX": "auto"
+            }),
+
         dcc.Markdown(
             text_fig3,
-            style={"position": "relative",
-                "marginLeft": "20%",
-                "marginRight": "20%",
+            style={
                 "color": "#D4D4D4",
-                "fontSize": "14px",
+                "fontSize": "0.75vw",
                 "fontFamily": "Century Gothic, sans-serif",
-                "textAlign": "center"
-            },
+                "textAlign": "center",
+                "width": "40%",
+                "margin": "20px auto",
+            }
         ),
         html.P(
             "Last updated: Never",
             id="last-updated",
-            style={"color": "white", "textAlign": "center"},
-        ),
-    ],
+            style={"color": "white", "textAlign": "center",
+                   "width": "100%", "margin": "10px 0"}
+        )
+    ]
 )
 
 ## trigger background updates
