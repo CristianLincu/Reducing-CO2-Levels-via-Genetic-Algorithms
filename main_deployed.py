@@ -544,7 +544,7 @@ def visuals():
             "Renewables: %{y}<br>"
             "Total Exchanges: %{z}<br>"
             "CO₂ Level: %{marker.color}"),
-        marker_size=4)
+        marker_size=3)
 
 
     fig2.update_layout(scene = dict(xaxis = dict(
@@ -678,7 +678,7 @@ app.layout = html.Div(
     children=[
         dcc.Interval(
             id="update-interval",
-            interval=300 * 1000,  # Trigger every 5 minutes
+            interval=300 * 1000,  #trigger every 5 minutes
             n_intervals=0,
         ),
         html.Br(),
@@ -724,7 +724,7 @@ app.layout = html.Div(
             text_fig1,
             style={
                 "color": "#D4D4D4",
-                "fontSize": "0.87vw",
+                "fontSize": "0.8vw",
                 "fontFamily": "Century Gothic, sans-serif",
                 "textAlign": "center",
                 "width": "40%",
@@ -749,7 +749,7 @@ app.layout = html.Div(
             table_title,
             style={
                 "color": "#D4D4D4",
-                "fontSize": "1vw",
+                "fontSize": "0.95vw",
                 "fontFamily": "Century Gothic, sans-serif",
                 "textAlign": "center",
                 "margin": "20px 0",
@@ -768,7 +768,7 @@ app.layout = html.Div(
             text_fig3,
             style={
                 "color": "#D4D4D4",
-                "fontSize": "0.87vw",
+                "fontSize": "0.8vw",
                 "fontFamily": "Century Gothic, sans-serif",
                 "textAlign": "center",
                 "width": "50%",
@@ -782,9 +782,9 @@ app.layout = html.Div(
             id="fig2",
             figure=fig2 if fig2 else go.Figure(),
             style={
-                "width": "100%",
+                "width": "30vw",
                 "maxWidth": "700px",
-                "height": "auto",
+                "height": "60vw",
                 "margin": "10px 0",
             }
         ),
@@ -793,7 +793,7 @@ app.layout = html.Div(
             text_fig2,
             style={
                 "color": "#D4D4D4",
-                "fontSize": "0.87vw",
+                "fontSize": "0.8vw",
                 "fontFamily": "Century Gothic, sans-serif",
                 "textAlign": "center",
                 "width": "40%",
