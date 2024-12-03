@@ -290,14 +290,17 @@ next_objective_values, next_optimized_co2, next_optimal_combinations = genetic_e
 
 title = "REDUCING CO₂ LEVELS USING GENETIC ALGORITHMS"
 
-main_text = """
+main_text1 = """
             This project aims to provide a solution framework for minimizing CO₂ emission levels in a national power grid, through machine learning methods. 
             The data is collected via Energinet's public API which provides real-time data about Denmark's power system. 
             The dataset prepared for this analysis consists of data recorded every 5 minutes for the past year.
 
             The main elements of this project are: a regression tree for CO₂ levels, XGBoost regressors for predicting demand and renewable energy production, 
-            genetic algorithms for finding the optimal energy distribution with respect to CO₂ emission minimization. The methodology is described below:
-
+            genetic algorithms for finding the optimal energy distribution with respect to CO₂ emission minimization. 
+            
+            """
+main_text2 = """
+            The methodology is described below:
             I. A decision tree regressor infers the CO₂ levels taking into account 12 features: renewable energy production (solar and wind), 
             energy produced by power plants with installed capacity greater or equal to 100 MW, 
             energy produced by power plants with installed capacity less than 100 MW, and energy exchanges between Denmark and other countries or areas (DK1-DE,
@@ -688,6 +691,19 @@ app.layout = html.Div(
         html.Br(),
         html.Br(),
 
+        dcc.Markdown(main_text1, mathjax=True,
+                style={
+                "color": "#D4D4D4",
+                "fontSize": "1vw",
+                "fontFamily": "Segoe UI, sans-serif",
+                "textAlign": "justify",
+                "width": "100%",
+                "maxWidth": "900px",
+                "margin": "0 auto"}
+                ),
+
+        html.Br(),
+
         dcc.Graph(
             id="fig1",
             figure=fig1 if fig1 else go.Figure(),
@@ -711,7 +727,7 @@ app.layout = html.Div(
             }
         ),
 
-        dcc.Markdown(main_text, mathjax=True,
+        dcc.Markdown(main_text2, mathjax=True,
                 style={
                 "color": "#D4D4D4",
                 "fontSize": "1vw",
