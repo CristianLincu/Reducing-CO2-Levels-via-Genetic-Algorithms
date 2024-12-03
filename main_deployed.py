@@ -419,10 +419,10 @@ server = Flask(__name__)
 
 @server.route("/")
 def home():
-    return "Welcome to the CO2 Reduction Dashboard! Go to '/webapp' to view the Dash app."
+    return "Welcome to the CO2 Reduction Dashboard! Go to '/desktop-view' to view the Dash app."
 
 print("Initializing Dash...")
-app = Dash(__name__, server=server, url_base_pathname="/webapp/")
+app = Dash(__name__, server=server, url_base_pathname="/desktop-view/")
 print("Dash initialized successfully.")
 
 viewport_width = app.config['suppress_callback_exceptions']
