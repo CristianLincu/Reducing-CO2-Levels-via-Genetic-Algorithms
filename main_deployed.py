@@ -563,7 +563,7 @@ def visuals():
             font=dict(
                 family="Century Gothic",
                 color='white',
-                size=responsive_font_size + 2 # Responsive chart title font size
+                size=responsive_font_size + 4 # Responsive chart title font size
             ),
             x=0.47,
             y=0.95,
@@ -608,12 +608,12 @@ def visuals():
                     text='Power Plants Energy',
                     font=dict(
                         color='white',
-                        size=responsive_font_size  # Responsive axis title font size
+                        size=responsive_font_size + 1  # Responsive axis title font size
                     )
                 ),
                 tickfont=dict(
                     color='white',
-                    size=responsive_tick_font_size  # Responsive tick font size
+                    size=responsive_tick_font_size + 1  # Responsive tick font size
                 )
             ),
             yaxis=dict(
@@ -625,12 +625,12 @@ def visuals():
                     text='Renewables',
                     font=dict(
                         color='white',
-                        size=responsive_font_size  # Responsive axis title font size
+                        size=responsive_font_size + 1  # Responsive axis title font size
                     )
                 ),
                 tickfont=dict(
                     color='white',
-                    size=responsive_tick_font_size  # Responsive tick font size
+                    size=responsive_tick_font_size + 1  # Responsive tick font size
                 )
             ),
             zaxis=dict(
@@ -642,12 +642,12 @@ def visuals():
                     text='Total Exchanges',
                     font=dict(
                         color='white',
-                        size=responsive_font_size  # Responsive axis title font size
+                        size=responsive_font_size + 1  # Responsive axis title font size
                     )
                 ),
                 tickfont=dict(
                     color='white',
-                    size=responsive_tick_font_size  # Responsive tick font size
+                    size=responsive_tick_font_size + 1 # Responsive tick font size
                 )
             ),
             aspectratio=dict(x=0.5, y=0.5, z=0.5)
