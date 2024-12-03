@@ -395,7 +395,7 @@ to the genetic optimization.
 
 text_fig2 = """
 Fig 3: Relationship between power plant energy production, renewable energy, total net exchanges and CO₂ emissions, for the past 24 hours. 
-CO₂ levels are represented as continuous color gradient from dark purple (low emission levels) to yellow (high emission levels).
+CO₂ levels are represented as continuous color gradient from light blue (low emission levels) to intense red (high emission levels).
 Drag the chart with the left click to rotate the figure.
 """
 
