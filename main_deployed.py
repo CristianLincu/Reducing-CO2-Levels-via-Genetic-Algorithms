@@ -563,14 +563,13 @@ def visuals():
             font=dict(
                 family="Century Gothic",
                 color='white',
-                size=responsive_font_size + 4 # Responsive chart title font size
+                size=responsive_font_size + 5
             ),
             x=0.47,
             y=0.95,
         )
     )
 
-    # Update traces for responsive hovertemplate
     fig2.update_traces(
         hovertemplate=(
             "Power Plants Energy: %{x}<br>"
@@ -581,7 +580,6 @@ def visuals():
         marker_size=3
     )
 
-    # Update axes for responsiveness
     fig2.update_layout(
         scene=dict(
             xaxis=dict(
@@ -593,12 +591,12 @@ def visuals():
                     text='Power Plants Energy',
                     font=dict(
                         color='white',
-                        size=responsive_font_size + 1  # Responsive axis title font size
+                        size=responsive_font_size + 2
                     )
                 ),
                 tickfont=dict(
                     color='white',
-                    size=responsive_tick_font_size + 1  # Responsive tick font size
+                    size=responsive_tick_font_size + 2
                 )
             ),
             yaxis=dict(
@@ -610,12 +608,12 @@ def visuals():
                     text='Renewables',
                     font=dict(
                         color='white',
-                        size=responsive_font_size + 1  # Responsive axis title font size
+                        size=responsive_font_size + 2
                     )
                 ),
                 tickfont=dict(
                     color='white',
-                    size=responsive_tick_font_size + 1  # Responsive tick font size
+                    size=responsive_tick_font_size + 2
                 )
             ),
             zaxis=dict(
@@ -627,40 +625,20 @@ def visuals():
                     text='Total Exchanges',
                     font=dict(
                         color='white',
-                        size=responsive_font_size + 1  # Responsive axis title font size
+                        size=responsive_font_size + 2
                     )
                 ),
                 tickfont=dict(
                     color='white',
-                    size=responsive_tick_font_size + 1 # Responsive tick font size
+                    size=responsive_tick_font_size + 2
                 )
             ),
             aspectratio=dict(x=0.5, y=0.5, z=0.5)
         )
     )
 
-    # fig2.update_layout(
-    #     legend=dict(
-    #         title=dict(
-    #             text="CO₂ Level",
-    #             font=dict(
-    #                 family="Arial",
-    #                 size=responsive_font_size - 5,  # Legend title font
-    #                 color='white',  # Ensure title font color is white
-    #             )
-    #         ),
-    #         font=dict(
-    #             family="Arial",
-    #             size=responsive_font_size - 5,  # Legend items font
-    #             color="white"  # Ensure items font color is white
-    #         ),
-    #         bgcolor="rgba(0, 0, 0, 0)",  # Transparent background for the legend
-    #         bordercolor="rgba(0, 0, 0, 0)",  # No border color
-    #     )
-    # )
-
     fig2.update_layout(legend=dict(font=dict(family="Arial", size=responsive_font_size-5, color="white")),
-                font=dict(family='Calibri', size=responsive_font_size, color='white'))
+                font=dict(family='Calibri', color='white'))
 
 
     ## Fig 3: the optimal resource allocation in the next 5 time points, minimizing CO2 levels
