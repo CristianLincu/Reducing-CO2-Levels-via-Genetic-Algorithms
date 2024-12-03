@@ -301,6 +301,7 @@ main_text1 = """
             """
 main_text2 = """
             The methodology is described below:
+
             I. A decision tree regressor infers the CO₂ levels taking into account 12 features: renewable energy production (solar and wind), 
             energy produced by power plants with installed capacity greater or equal to 100 MW, 
             energy produced by power plants with installed capacity less than 100 MW, and energy exchanges between Denmark and other countries or areas (DK1-DE,
@@ -378,7 +379,7 @@ main_text2 = """
 
             Ultimately, every 5 minutes, this model produces 5 forecasted time points presenting values for power plant production and exchanges that minimize 
             CO₂ levels, balance the grid and, at the same time, maximize the resemblance with the latest distribution in order to increase realism and 
-            coherence (Fig 3). This model has provided solutions that represented potential 50%-75% CO₂ emission reductions.
+            coherence (Fig 2). This model has provided solutions that represented potential 50%-75% CO₂ emission reductions.
 
             """
 
@@ -389,7 +390,7 @@ to the genetic optimization.
 """
 
 text_fig2 = """
-Fig 2: Relationship between power plant energy production, renewable energy, total net exchanges and CO₂ emissions, for the past 24 hours. 
+Fig 3: Relationship between power plant energy production, renewable energy, total net exchanges and CO₂ emissions, for the past 24 hours. 
 CO₂ levels are represented as continuous color gradient from dark purple (low emission levels) to yellow (high emission levels).
 Drag the chart with the left click to rotate the figure.
 """
@@ -397,7 +398,7 @@ Drag the chart with the left click to rotate the figure.
 table_title = "Optimal Resource Allocation in the Next 5 Time Points"
 
 text_fig3 = """
-Fig 3: The blue cells display the values for the next 5 timepoints in terms of power plant production and energy exchanges, optimized for minimizing the CO₂ 
+Fig 2: The blue cells display the values for the next 5 timepoints in terms of power plant production and energy exchanges, optimized for minimizing the CO₂ 
 emission levels, as resulted from the evolutionary process of the genetic heuristic. The green cells show the forecasted demand and renewables which condition 
 the forecasted distributable energy for each of the future timepoints, important in the evaluation of chromosomes.
 Finally, the last column shows the CO₂ levels that would result from the resource allocation displayed in the blue area of the chart.
@@ -574,12 +575,12 @@ def visuals():
                 'color': '#f0c671',
                 'textAlign': 'center',
                 'fontFamily': 'Arial, sans-serif',
-                'fontSize': '16px'
+                'fontSize': '13px'
             },
             style_cell={
                 'textAlign': 'center',
                 'padding': '10px',
-                'fontSize': '14px',
+                'fontSize': '10px',
                 'border': '1px solid lightgray',
                 'backgroundColor': 'rgb(47,55,79)',
                 'color': 'black',
@@ -740,29 +741,6 @@ app.layout = html.Div(
 
         html.Br(),
 
-        dcc.Graph(
-            id="fig2",
-            figure=fig2 if fig2 else go.Figure(),
-            style={
-                "width": "100%",
-                "maxWidth": "700px",
-                "height": "auto",
-                "margin": "10px 0",
-            }
-        ),
-
-        dcc.Markdown(
-            text_fig2,
-            style={
-                "color": "#D4D4D4",
-                "fontSize": "0.75vw",
-                "fontFamily": "Century Gothic, sans-serif",
-                "textAlign": "center",
-                "width": "40%",
-                "margin": "0 auto",
-            }
-        ),
-
         dcc.Markdown(
             table_title,
             style={
@@ -793,6 +771,30 @@ app.layout = html.Div(
                 "margin": "20px auto",
             }
         ),
+
+        dcc.Graph(
+            id="fig2",
+            figure=fig2 if fig2 else go.Figure(),
+            style={
+                "width": "100%",
+                "maxWidth": "700px",
+                "height": "auto",
+                "margin": "10px 0",
+            }
+        ),
+
+        dcc.Markdown(
+            text_fig2,
+            style={
+                "color": "#D4D4D4",
+                "fontSize": "0.75vw",
+                "fontFamily": "Century Gothic, sans-serif",
+                "textAlign": "center",
+                "width": "40%",
+                "margin": "0 auto",
+            }
+        ),
+
         html.P(
             "Last updated: Never",
             id="last-updated",
