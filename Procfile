@@ -1,0 +1,1 @@
+web: gunicorn main_deployed:server --workers=1 --threads=2
