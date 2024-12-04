@@ -405,7 +405,8 @@ text_fig3 = """
 Fig 2: The blue cells display the values for the next 5 timepoints in terms of power plant production and energy exchanges, optimized for minimizing the CO₂ 
 emission levels, as resulted from the evolutionary process of the genetic heuristic. The green cells show the forecasted demand and renewables which condition 
 the forecasted distributable energy for each of the future timepoints, important in the evaluation of chromosomes.
-Finally, the last column shows the CO₂ levels that would result from the resource allocation displayed in the blue area of the chart.
+Finally, the last column shows the minimized CO₂ levels 
+that would result from the optimal resource allocation displayed in the blue area of the chart.
 """
 
 row_colors_T = ['#666666', '#808080', '#B3B3B3', '#CCCCCC', '#E6E6E6']
