@@ -904,4 +904,3 @@ def refresh_visuals(n_intervals):
         go.Figure(),  # Empty figure
         html.Div("Loading... Please wait."),
     )
-#
