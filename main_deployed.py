@@ -297,7 +297,7 @@ main_text1 = """
 
             The main elements of this project are: a regression tree for CO₂ levels, XGBoost regressors for predicting demand and renewable energy production
             (trained on the past year data) and genetic algorithms for finding the optimal energy distribution with respect to CO₂ emission minimization. 
-            The goal is to infer the optimal resource combination that minimizes CO₂ emissions, depending on future demand and
+            The goal is to infer the optimal resource combinations that minimizes CO₂ emissions, depending on future demand and
             renewables production. Fig 1 shows a comparison between emissions in the past hour in Denmark's power system and the minimized CO₂ levels 
             in the next 5 time points with optimal energy distribution:
 
