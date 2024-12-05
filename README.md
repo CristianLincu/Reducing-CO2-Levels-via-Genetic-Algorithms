@@ -1,0 +1,6 @@
+This project aims to provide a solution framework for minimizing CO<sub>2</sub> emission levels in a national power grid, through machine learning
+methods. The data is collected via Energinet's public API which provides real-time data about Denmark's power system. 
+
+Visit the Flask web app deployed on Heroku ([desktop view only](https://cristian-lincu-82f687063209.herokuapp.com/desktop-view/)), which includes visuals showcasing a dynamic comparison between past hour's emissions and the minimized CO<sub>2</sub> levels in the next 5 time points (inferred by the model presented herein), as well as the optimal energy resource distributions leading to these minimized emission levels.
+
+The main elements of this project are: a regression tree for CO<sub>2</sub> levels, XGBoost regressors for predicting demand and renewable energy production (trained on past year's data) and genetic algorithms for finding the optimal energy distribution with respect to CO<sub>2</sub> emission minimization. The goal is to infer the optimal resource combinations that minimizes CO₂ emissions, depending on future demand and renewables production. Continue reading the methodology description and check out the Python scripts for more details.
