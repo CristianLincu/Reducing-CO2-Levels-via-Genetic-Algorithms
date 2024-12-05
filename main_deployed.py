@@ -466,7 +466,6 @@ def visuals():
         'DK2-DE', 'DK2-SE', 'Bornholm-SE', 'Demand Forecast',
         'Renewables Forecast', 'CO₂ Optimized']
 
-    #table_visual['Demand Forecast'] = table_visual['Demand Forecast'].round()
     table_visual.iloc[:,1:] = table_visual.iloc[:,1:].round()
 
 
@@ -481,7 +480,7 @@ def visuals():
                                                                         data_and_next['CO2Emission'][split_point:])]
 
 
-    ### Trace for the main area (first n-5 timepoints)
+    ### trace for the main area (first n-5 timepoints)
     trace_main = go.Scatter(
         x=data_and_next['Minutes1DK'][start_point:split_point],
         y=data_and_next['CO2Emission'][start_point:split_point],
@@ -493,7 +492,7 @@ def visuals():
         hovertemplate='%{text}'
     )
 
-    ### Trace for the last 5 timepoints
+    ### trace for the last 5 timepoints
     trace_last5 = go.Scatter(
         x=data_and_next['Minutes1DK'][split_point:],
         y=data_and_next['CO2Emission'][split_point:],
@@ -509,7 +508,7 @@ def visuals():
     y_min = min(data_and_next['CO2Emission'])
     y_max = max(data_and_next['CO2Emission'])
 
-    ### Create the figure and add traces
+    ### create the figure and add traces
     fig1 = go.Figure(data=[trace_main, trace_last5])
 
     fig1.update_layout(
@@ -537,7 +536,7 @@ def visuals():
             y=1.2,                  
             xanchor='center',
             yanchor='bottom',
-            font=dict(color='white', size=responsive_font_size - 2),  # Slightly smaller legend font
+            font=dict(color='white', size=responsive_font_size - 2),
         ),
         showlegend=True,
         plot_bgcolor='rgb(47,55,79)',
@@ -642,7 +641,7 @@ def visuals():
                 font=dict(family='Calibri', color='white'))
 
 
-    ## Fig 3: the optimal resource allocation in the next 5 time points, minimizing CO2 levels
+    ## Fig 3: The optimal resource allocation in the next 5 time points, minimizing CO2 levels
 
     fig3  = dash_table.DataTable(
             data = table_visual.to_dict('records'),
@@ -712,7 +711,7 @@ def update_data():
     print("Background update started...")
 
     try:
-        # Perform updates
+        ## perform updates
         data = get_PowerSystem_data()
         latest_distribution, next_demands, next_renewables = latest_and_nextDR()
         next_objective_values, next_optimized_co2, next_optimal_combinations = genetic_ensemble(25, 100, 150, 8)
@@ -824,7 +823,6 @@ app.layout = html.Div(
                 "width": "80vw",
                 "maxWidth": "1000px",
                 "margin": "0 auto",
-             #   "overflowX": "auto"
             }),
 
         dcc.Markdown(
@@ -882,7 +880,7 @@ def trigger_update(n_intervals):
     global update_in_progress
 
     if not update_in_progress:
-        # Start a new thread for background updates
+        ## start a new thread for background updates
         threading.Thread(target=update_data).start()
 
 ## update visuals
@@ -900,7 +898,7 @@ def refresh_visuals(n_intervals):
 
     ## return placeholders if updates are still in progress
     return (
-        go.Figure(),  # Empty figure
-        go.Figure(),  # Empty figure
+        go.Figure(),
+        go.Figure(),
         html.Div("Loading... Please wait."),
     )
