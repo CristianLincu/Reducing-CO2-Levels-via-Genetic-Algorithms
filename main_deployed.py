@@ -293,12 +293,12 @@ title = "REDUCING CO₂ LEVELS USING GENETIC ALGORITHMS"
 main_text1 = """
             This project aims to provide a solution framework for minimizing CO₂ emission levels in a national power grid, through machine learning methods. 
             The data is collected via Energinet's public API which provides real-time data about Denmark's power system. 
-            The dataset prepared for this analysis consists of data recorded every 5 minutes for the past year.
+            The dataset prepared for this research consists of data recorded every 5 minutes for the past year.
 
-            The main elements of this project are: a regression tree for CO₂ levels, XGBoost regressors for predicting demand and renewable energy production
+            The main elements of this project are: a regression tree for inferring CO₂ levels, XGBoost regressors for predicting demand and renewable energy production
             (trained on the past year data) and genetic algorithms for finding the optimal energy distribution with respect to CO₂ emission minimization. 
             The goal is to infer the optimal resource combinations that minimize CO₂ emissions, depending on future demand and
-            renewables production. Fig 1 shows a comparison between emissions in the past hour in Denmark's power system and the minimized CO₂ levels 
+            renewables production. Fig 1 shows a comparison between emissions in the past hour in Denmark's power system and minimized CO₂ levels 
             in the next 5 time points with optimal energy distribution:
 
             
@@ -306,7 +306,7 @@ main_text1 = """
 main_text2 = """
             The methodology is described below:
 
-            I. A decision tree regressor infers the CO₂ levels taking into account 12 features: renewable energy production (solar and wind), 
+            I. A decision tree regressor infers CO₂ levels taking into account 12 features: renewable energy production (solar and wind), 
             energy produced by power plants with installed capacity greater or equal to 100 MW, 
             energy produced by power plants with installed capacity less than 100 MW, and energy exchanges between Denmark and other countries or areas (DK1-DE,
             DK1-NL,
@@ -324,10 +324,10 @@ main_text2 = """
             to keep the grid frequency at 50 Hz 
             (within a margin of 0.1 Hz, or $\pm1\%$ of the total demand). Considering that renewable energy depends on weather conditions, 
             we will need a forecasted amount of distributable energy whose allocation will be optimized among the mentioned sources (except for renewables, of course); 
-            this quantity will be represented by the difference between the forecasted demand and forecasted renewable energy.
+            this quantity will be represented by the difference between forecasted demand and forecasted renewable energy.
 
             III. For each of the 5 forecasted steps, the optimal combination of sources is inferred using genetic algorithms. 
-            In order to escape eventual local optima and increase the success of the method, this is done by employing a genetic ensemble with 25 optimizers. 
+            In order to escape eventual local optima and increase the method's success, this is done by employing a genetic ensemble with 25 optimizers. 
             Populations of solutions are initialized stochastically and transformed by evolutionary processes to arrive at the "fittest" distribution, 
             exploring a search space of approximately $2 \cdot 10^{32}$ combinations. The restrictions are the ranges of power plant production and the interconnector limits for exchanges (as inferred from past year's data). 
             These limits are considered at initialization time and respected throughout the process, during random mutation events. 
@@ -353,7 +353,7 @@ main_text2 = """
             using the regression tree to infer the CO₂ emission level implied by the solution it represents, while solutions that do not balance 
             the power grid are penalized by an augmentation that will significantly reduce their coupling chances. Some simplifying approaches are in place, 
             as the model does not take into consideration other factors that might influence the quantities, like exchange contracts with neighboring countries 
-            or energy prices in the area. However, the fitness function also includes a term whose role is to maximize the similarity between the proposed solutions 
+            or energy prices in the area. However, the fitness function also includes a term whose role is to maximize the similarity between proposed solutions 
             and the latest distribution in the dataset. This makes the optimal solutions for the next 5 time points more realistic and also makes sure there is a 
             certain coherence between them, as much as possible, avoiding crazy swings of production or exchange values, 5 minutes apart. Thus, each optimal solution 
             minimizes the fitness function composed of these elements: grid imbalance penalty, negative resemblance and CO₂ level.
