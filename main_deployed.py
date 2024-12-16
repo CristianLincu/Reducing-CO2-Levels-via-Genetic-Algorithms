@@ -701,7 +701,7 @@ def visuals():
 
 data, latest_distribution, next_demands, next_renewables = None, None, None, None
 next_objective_values, next_optimized_co2, next_optimal_combinations = None, None, None
-fig1, fig2, fig3 = go.Figure(), go.Figure(), html.Div("Loading...")  # Cached results
+fig1, fig2, fig3 = go.Figure(), go.Figure(), html.Div("Loading...")
 update_in_progress, update_complete = False, False
 
 def initialize_data_and_visuals():
@@ -916,9 +916,8 @@ def refresh_visuals(n_intervals):
         update_complete = False
         return fig1, fig2, fig3
 
-    # Return last successful results (cached visuals) while waiting for updates
+    ## Return last successful results (cached visuals) while waiting for updates
     return fig1, fig2, fig3
 
 if __name__ == "__main__":
-    # Initialize data and visuals before starting the app
     initialize_data_and_visuals()
