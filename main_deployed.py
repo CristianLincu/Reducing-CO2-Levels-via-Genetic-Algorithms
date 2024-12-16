@@ -699,6 +699,23 @@ def visuals():
     return fig1, fig2, fig3
 
 
+data, latest_distribution, next_demands, next_renewables = None, None, None, None
+next_objective_values, next_optimized_co2, next_optimal_combinations = None, None, None
+fig1, fig2, fig3 = go.Figure(), go.Figure(), html.Div("Loading...")  # Cached results
+update_in_progress, update_complete = False, False
+
+def initialize_data_and_visuals():
+    global data, latest_distribution, next_demands, next_renewables
+    global next_objective_values, next_optimized_co2, next_optimal_combinations
+    global fig1, fig2, fig3
+
+    print("Initializing data and visuals...")
+    data = get_PowerSystem_data()
+    latest_distribution, next_demands, next_renewables = latest_and_nextDR()
+    next_objective_values, next_optimized_co2, next_optimal_combinations = genetic_ensemble(25, 100, 150, 8)
+    fig1, fig2, fig3 = visuals()
+    print("Initialization complete.")
+
 def update_data():
     global data, latest_distribution, next_demands, next_renewables
     global next_objective_values, next_optimized_co2, next_optimal_combinations
@@ -711,15 +728,19 @@ def update_data():
     print("Background update started...")
 
     try:
-        ## perform updates
+        # Perform updates
         data = get_PowerSystem_data()
         latest_distribution, next_demands, next_renewables = latest_and_nextDR()
         next_objective_values, next_optimized_co2, next_optimal_combinations = genetic_ensemble(25, 100, 150, 8)
+        
+        # Cache the latest successful visuals
         fig1, fig2, fig3 = visuals()
+        print("Background update completed successfully.")
+    except Exception as e:
+        print(f"Error during background update: {e}")
     finally:
         update_in_progress = False
         update_complete = True
-        print("Background update completed.")
 
 
 
@@ -892,13 +913,12 @@ def refresh_visuals(n_intervals):
     global fig1, fig2, fig3, update_complete
 
     if update_complete:
-        ## reset the update_complete flag and return updated visuals
         update_complete = False
         return fig1, fig2, fig3
 
-    ## return placeholders if updates are still in progress
-    return (
-        go.Figure(),
-        go.Figure(),
-        html.Div("Loading... Please wait."),
-    )
+    # Return last successful results (cached visuals) while waiting for updates
+    return fig1, fig2, fig3
+
+if __name__ == "__main__":
+    # Initialize data and visuals before starting the app
+    initialize_data_and_visuals()
