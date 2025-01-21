@@ -794,7 +794,7 @@ app.layout = html.Div(
 
         dcc.Graph(
             id="fig1",
-            figure=fig1 if fig1 else html.Div("Loading..."),
+            figure=fig1 if fig1 else go.Figure(),
             style={
                 "width": "40vw",
                 "maxWidth": "800px",
@@ -862,7 +862,7 @@ app.layout = html.Div(
 
         dcc.Graph(
             id="fig2",
-            figure=fig2 if fig2 else html.Div("Loading..."),
+            figure=fig2 if fig2 else go.Figure(),
             style={
                 "width": "40vw",
                 "maxWidth": "700px",
