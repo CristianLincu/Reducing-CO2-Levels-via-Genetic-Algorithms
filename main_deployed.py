@@ -916,8 +916,19 @@ def refresh_visuals(n_intervals):
         update_complete = False
         return fig1, fig2, fig3
 
-    ## Return last successful results (cached visuals) while waiting for updates
-    return fig1, fig2, fig3
+    return (
+        go.Figure().update_layout(title="LOADING VISUAL, PLEASE WAIT..."),
+        go.Figure().update_layout(title="LOADING VISUAL, PLEASE WAIT..."),
+        html.Div(
+            "LOADING VISUAL, PLEASE WAIT...",
+            style={
+                "color": "white",
+                "textAlign": "center",
+                "fontSize": "20px",
+                "marginTop": "20px"
+            },
+        ),
+    )
 
 if __name__ == "__main__":
     initialize_data_and_visuals()
