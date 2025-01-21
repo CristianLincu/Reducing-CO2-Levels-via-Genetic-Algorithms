@@ -922,11 +922,10 @@ def refresh_visuals(n_intervals):
         html.Div(
             "LOADING VISUAL, PLEASE WAIT...",
             style={
-                "color": "white",
+                "color": "#D4D4D4",
                 "textAlign": "center",
-                "fontSize": "12px",
-                "fontFamily": "Arial, sans-serif",
-                "marginTop": "20px"
+                "fontSize": "0.9vw",
+                "fontFamily": "Segoe UI, sans-serif"
             }
         )
     )
