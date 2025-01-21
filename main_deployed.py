@@ -704,6 +704,18 @@ next_objective_values, next_optimized_co2, next_optimal_combinations = None, Non
 fig1, fig2, fig3 = go.Figure(), go.Figure(), html.Div("Loading...")
 update_in_progress, update_complete = False, False
 
+loading_message = html.Div(
+    "LOADING, PLEASE WAIT...",
+    style={
+        "color": "#D4D4D4",
+        "fontSize": "1.5vw",
+        "fontFamily": "Segoe UI, sans-serif",
+        "textAlign": "center",
+        "width": "100%",
+        "marginTop": "20px",
+    },
+)
+
 def initialize_data_and_visuals():
     global data, latest_distribution, next_demands, next_renewables
     global next_objective_values, next_optimized_co2, next_optimal_combinations
@@ -792,15 +804,15 @@ app.layout = html.Div(
 
         html.Br(),
 
-        dcc.Graph(
-            id="fig1",
-            figure=fig1 if fig1 else go.Figure(),
+        html.Div(
+            id="fig1-container",
+            children=loading_message,
             style={
                 "width": "40vw",
                 "maxWidth": "800px",
                 "height": "45vh",
                 "margin": "10px 0",
-            }
+            },
         ),
 
         dcc.Markdown(
@@ -839,12 +851,15 @@ app.layout = html.Div(
             }
         ),
 
-        html.Div(id="fig3-container", children=fig3 if fig3 else html.Div("Loading..."),
-                 style={
+        html.Div(
+            id="fig3-container",
+            children=loading_message,
+            style={
                 "width": "80vw",
                 "maxWidth": "1000px",
                 "margin": "0 auto",
-            }),
+            },
+        ),
 
         dcc.Markdown(
             text_fig3,
@@ -860,15 +875,15 @@ app.layout = html.Div(
 
         html.Br(),
 
-        dcc.Graph(
-            id="fig2",
-            figure=fig2 if fig2 else go.Figure(),
+        html.Div(
+            id="fig2-container",
+            children=loading_message,
             style={
                 "width": "40vw",
                 "maxWidth": "700px",
                 "height": "70vh",
                 "margin": "10px 0",
-            }
+            },
         ),
 
         dcc.Markdown(
@@ -906,7 +921,7 @@ def trigger_update(n_intervals):
 
 ## update visuals
 @app.callback(
-    [Output("fig1", "figure"), Output("fig2", "figure"), Output("fig3-container", "children")],
+    [Output("fig1-container", "children"), Output("fig2-container", "children"), Output("fig3-container", "children")],
     [Input("update-interval", "n_intervals")],
 )
 def refresh_visuals(n_intervals):
@@ -914,10 +929,10 @@ def refresh_visuals(n_intervals):
 
     if update_complete:
         update_complete = False
-        return fig1, fig2, fig3
+        return dcc.Graph(figure=fig1), dcc.Graph(figure=fig2), fig3
 
-    ## Return last successful results (cached visuals) while waiting for updates
-    return fig1, fig2, fig3
+    # Return the loading message for all containers if visuals are not ready
+    return loading_message, loading_message, loading_message
 
 if __name__ == "__main__":
     initialize_data_and_visuals()
