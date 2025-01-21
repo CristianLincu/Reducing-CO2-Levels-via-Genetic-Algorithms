@@ -924,10 +924,11 @@ def refresh_visuals(n_intervals):
             style={
                 "color": "white",
                 "textAlign": "center",
-                "fontSize": "20px",
+                "fontSize": "12px",
+                "fontFamily": "Arial, sans-serif",
                 "marginTop": "20px"
-            },
-        ),
+            }
+        )
     )
 
 if __name__ == "__main__":
