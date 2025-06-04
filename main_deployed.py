@@ -282,7 +282,7 @@ def genetic_ensemble(n_optimizers, size, epochs, beta):
     next_optimal_combinations = np.array(next_optimal_combinations)
 
     if next_optimized_co2_prelimin[0] <= data.iloc[-1,2]:
-        next_optimized_co2 = [next_optimized_co2_prelimin[i] for i in next_optimized_co2_prelimin]
+        next_optimized_co2 = [next_optimized_co2_prelimin[i] for i in range(len(next_optimized_co2_prelimin))]
     else:
         next_optimized_co2 = [data.iloc[-1,2]]*5
 
